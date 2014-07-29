@@ -1,0 +1,34 @@
+{
+    "name": "oql",
+    "fullname": "Object Query Language",
+    "description": "",
+    "version": "0.1.0",
+    "keywords": [],
+    "main": "./lib/index.js",
+    "dependencies": {
+        "underscore":       "1.x.x",
+        "rx":               "2.x.x"
+    },
+    "devDependencies": {
+        "mocha":        "1.x.x",
+        "should":       "3.x.x",
+        "del":          "*",
+        "gulp":         "3.x.x",
+        "gulp-ejs":     "0.x.x",
+        "gulp-jsdoc":   "0.x.x"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/jhamlet/oql/raw/master/LICENSE"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/jhamlet/oql.git"
+    },
+    "bugs": {
+        "url": "http://github.com/jhamlet/oql/issues"
+    },
+    "private": true
+}

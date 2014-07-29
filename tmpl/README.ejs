@@ -1,0 +1,73 @@
+<%- pkg.fullname %>
+<%- Array(pkg.fullname.length+1).join("=") %>
+
+> <%-pkg.description%>
+
+
+Summary
+-------
+
+
+Installation
+------------
+
+~~~
+% npm install <%-pkg.name%>
+~~~
+<%  var dependencies = pkg.dependencies;
+    var dependencyKeys = Object.keys(dependencies);
+    
+    if (dependencyKeys.length) {
+%>
+
+### Dependencies ###
+
+These are installed when **<%-pkg.name%>** is installed.
+<% var  fw = dependencyKeys.reduce(function (t, c) {
+            var len = c.length;
+            return len > t ? len : t;
+        }, 0),
+        deps = dependencyKeys.map(function (key) {
+            var pad = Array(fw - key.length + 1).join(" ");
+            return key + ": " + pad + dependencies[key];
+        }).join("\n");%>
+~~~
+<%=deps%>
+~~~
+<% } %>
+
+### Development Dependencies ###
+
+Installed when you run `npm install` in the package directory.
+<% var  fw = Object.keys(pkg.devDependencies).reduce(function (t, c) {
+            var len = c.length;
+            return len > t ? len : t;
+        }, 0),
+        devDeps = Object.keys(pkg.devDependencies).map(function (key) {
+            var pad = Array(fw - key.length + 1).join(" ");
+            return key + ": " + pad + pkg.devDependencies[key];
+        }).join("\n");%>
+~~~
+<%=devDeps%>
+~~~
+
+
+Report an Issue
+---------------
+
+* [Bugs](<%=pkg.bugs.url%>)
+* Contact the author: <jerry@hamletink.com>
+
+
+License
+-------
+
+<%-
+    license.
+    split("\n").
+    filter(function (line, idx, list) {
+        return !(idx === list.length - 1 && /^\s*$/.test(line));
+    }).
+    map(function (line) { return "> " + line; }).
+    join("\n")
+%>
