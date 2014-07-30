@@ -1,4 +1,7 @@
 .DS_Store
-tmpl
+gulpfile.js
+src
 notes
 test
+api.md
+docs

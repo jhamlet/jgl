@@ -1,21 +1,30 @@
-var gulp    = require('gulp'),
-    ejs     = require('gulp-ejs'),
-    jsdoc   = require('gulp-jsdoc'),
-    fs      = require('fs'),
-    path    = require('path'),
-    del     = require('del'),
-    pkgInfo = require('./package.json'),
-    CLEAN   = [];
+var gulp     = require('gulp'),
+    ejs      = require('gulp-ejs'),
+    jsdoc    = require('gulp-jsdoc'),
+    jsdoc2md = require('jsdoc-to-markdown'),
+    fs       = require('fs'),
+    path     = require('path'),
+    clean    = require('del'),
+    pkgInfo  = require('./package.json'),
+    CLEAN    = [];
     
 gulp.task('clean', function (done) {
-    del(CLEAN, done);
+    clean(CLEAN, done);
 });
 
-gulp.task('readme', function () {
-    return gulp.src('tmpl/README.ejs').
+gulp.task('api.md', function () {
+    return jsdoc2md.
+        render('lib/**/*.js', { 'heading-depth': 3 }).
+        pipe(fs.createWriteStream('api.md'));
+});
+CLEAN.push('api.md');
+
+gulp.task('readme', ['api.md'], function () {
+    return gulp.src('src/tmpl/README.ejs').
         pipe(ejs({
             pkg: pkgInfo,
-            license: fs.readFileSync('./LICENSE', 'utf8')
+            documentation: fs.readFileSync('api.md', 'utf8'),
+            license: fs.readFileSync('LICENSE', 'utf8')
         }, {
             ext: '.md'
         })).
@@ -29,7 +38,7 @@ gulp.task('docs', ['readme'], function () {
             path.join('docs', pkgInfo.version),
             {
                 path:                  'ink-docstrap',
-                systemName:            'OQL',
+                systemName:            'OPL',
                 footer:                '',
                 copyright:             'Copyright © 2014 Jerry Hamlet',
                 navType:               'vertical',
@@ -55,6 +64,7 @@ gulp.task('docs', ['readme'], function () {
             }
         ));
 });
+CLEAN.push('docs/**/*');
 CLEAN.push('docs');
 
 gulp.task('default', ['clean', 'docs']);

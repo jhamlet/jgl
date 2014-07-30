@@ -1,5 +1,5 @@
-Object Query Language
-=====================
+Object Path Language
+====================
 
 > 
 
@@ -12,15 +12,65 @@ Installation
 ------------
 
 ~~~
-% npm install oql
+% npm install opl
 ~~~
 
 
-### Dependencies ###
+API
+---
 
-These are installed when **oql** is installed.
+<a name="OPL"></a>
+###class: OPL
+**Members**
+
+* [class: OPL](#OPL)
+  * [new OPL(path)](#new_OPL)
+  * [oPL.path](#OPL#path)
+  * [OPL.explode(path)](#OPL.explode)
+  * [OPL.segmentKeys(segment)](#OPL.segmentKeys)
+  * [type: OPL~Range](#OPL..Range)
+  * [type: OPL~Segment](#OPL..Segment)
+
+<a name="new_OPL"></a>
+####new OPL(path)
+**Params**
+
+- path <code>[Array.&lt;Segment&gt;](#OPL..Segment)</code>  
+
+<a name="OPL#path"></a>
+####oPL.path
+**Type**: [Array.&lt;Segment&gt;](#OPL..Segment)  
+<a name="OPL.explode"></a>
+####OPL.explode(path)
+**Params**
+
+- path `Array.<OPL~KeySegment>`  
+
+**Returns**: `Array.<Array.<(Integer|String)>>`  
+<a name="OPL.segmentKeys"></a>
+####OPL.segmentKeys(segment)
+**Params**
+
+- segment <code>[Segment](#OPL..Segment)</code>  
+
+**Returns**: `Array.<Integer,String>`  
+<a name="OPL..Range"></a>
+####type: OPL~Range
+**Scope**: inner typedef of [OPL](#OPL)  
+**Type**: `Object`  
+<a name="OPL..Segment"></a>
+####type: OPL~Segment
+**Scope**: inner typedef of [OPL](#OPL)  
+**Type**: `Integer` | `String` | [Range](#OPL..Range) | [Array.&lt;Segment&gt;](#OPL..Segment)  
+
+
+Dependencies
+------------
+
+These are installed when **opl** is installed.
 
 ~~~
+protean:    0.x.x
 underscore: 1.x.x
 rx:         2.x.x
 ~~~
@@ -31,19 +81,20 @@ rx:         2.x.x
 Installed when you run `npm install` in the package directory.
 
 ~~~
-mocha:      1.x.x
-should:     3.x.x
-del:        *
-gulp:       3.x.x
-gulp-ejs:   0.x.x
-gulp-jsdoc: 0.x.x
+mocha:             1.x.x
+should:            3.x.x
+del:               *
+gulp:              3.x.x
+gulp-ejs:          0.x.x
+gulp-jsdoc:        0.x.x
+jsdoc-to-markdown: 0.x.x
 ~~~
 
 
 Report an Issue
 ---------------
 
-* [Bugs](http://github.com/jhamlet/oql/issues)
+* [Bugs](http://github.com/jhamlet/opl/issues)
 * Contact the author: <jerry@hamletink.com>
 
 
