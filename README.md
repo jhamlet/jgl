@@ -19,49 +19,85 @@ Installation
 API
 ---
 
-<a name="OPL"></a>
-###class: OPL
+<a name="module_OPL"></a>
+###OPL
+Object Path Language
+
 **Members**
 
-* [class: OPL](#OPL)
-  * [new OPL(path)](#new_OPL)
-  * [oPL.path](#OPL#path)
-  * [OPL.explode(path)](#OPL.explode)
-  * [OPL.segmentKeys(segment)](#OPL.segmentKeys)
-  * [type: OPL~Range](#OPL..Range)
-  * [type: OPL~Segment](#OPL..Segment)
+* [OPL](#module_OPL)
+  * [OPL.explode(path)](#module_OPL.explode)
+  * [OPL.get(obj, ...path)](#module_OPL.get)
+  * [OPL.segmentKeys(segment)](#module_OPL.segmentKeys)
+  * [type: OPL~Range](#module_OPL..Range)
+  * [type: OPL~QueryKey](#module_OPL..QueryKey)
+  * [type: OPL~PathSegment](#module_OPL..PathSegment)
+  * [type: OPL~QuerySegment](#module_OPL..QuerySegment)
+  * [type: OPL~Query](#module_OPL..Query)
+  * [type: OPL~Path](#module_OPL..Path)
+  * [type: OPL~PathValue](#module_OPL..PathValue)
 
-<a name="new_OPL"></a>
-####new OPL(path)
-**Params**
-
-- path <code>[Array.&lt;Segment&gt;](#OPL..Segment)</code>  
-
-<a name="OPL#path"></a>
-####oPL.path
-**Type**: [Array.&lt;Segment&gt;](#OPL..Segment)  
-<a name="OPL.explode"></a>
+<a name="module_OPL.explode"></a>
 ####OPL.explode(path)
+Expand a path into all possible variations
+
 **Params**
 
-- path `Array.<OPL~KeySegment>`  
+- path <code>[Query](#module_OPL..Query)</code>  
 
-**Returns**: `Array.<Array.<(Integer|String)>>`  
-<a name="OPL.segmentKeys"></a>
+**Returns**: [Array.&lt;Path&gt;](#module_OPL..Path)  
+**Example**  
+OPL.explode([[1, 2], [3, 4], 5]);
+//=> [
+//      [1, 3, 5],
+//      [2, 3, 5],
+//      [1, 4, 5],
+//      [2, 4, 5]
+//   ]
+
+<a name="module_OPL.get"></a>
+####OPL.get(obj, ...path)
+**Params**
+
+- obj `Object` - The source object to pull values from  
+- ...path <code>[Query](#module_OPL..Query)</code> - The object paths to look up  
+
+**Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue)  
+<a name="module_OPL.segmentKeys"></a>
 ####OPL.segmentKeys(segment)
 **Params**
 
-- segment <code>[Segment](#OPL..Segment)</code>  
+- segment <code>[module:OPL~Segment](module:OPL~Segment)</code>  
 
 **Returns**: `Array.<Integer,String>`  
-<a name="OPL..Range"></a>
+<a name="module_OPL..Range"></a>
 ####type: OPL~Range
-**Scope**: inner typedef of [OPL](#OPL)  
+**Scope**: inner typedef of [OPL](#module_OPL)  
 **Type**: `Object`  
-<a name="OPL..Segment"></a>
-####type: OPL~Segment
-**Scope**: inner typedef of [OPL](#OPL)  
-**Type**: `Integer` | `String` | [Range](#OPL..Range) | [Array.&lt;Segment&gt;](#OPL..Segment)  
+<a name="module_OPL..QueryKey"></a>
+####type: OPL~QueryKey
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: `Integer` | `String` | [Range](#module_OPL..Range)  
+<a name="module_OPL..PathSegment"></a>
+####type: OPL~PathSegment
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: `Integer` | `String`  
+<a name="module_OPL..QuerySegment"></a>
+####type: OPL~QuerySegment
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: [QueryKey](#module_OPL..QueryKey) | [Array.&lt;QueryKey&gt;](#module_OPL..QueryKey)  
+<a name="module_OPL..Query"></a>
+####type: OPL~Query
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: [Array.&lt;QuerySegment&gt;](#module_OPL..QuerySegment)  
+<a name="module_OPL..Path"></a>
+####type: OPL~Path
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: [Array.&lt;PathSegment&gt;](#module_OPL..PathSegment)  
+<a name="module_OPL..PathValue"></a>
+####type: OPL~PathValue
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: `Array.<module:OPL~Path, Mixed,Error>`  
 
 
 Dependencies
@@ -72,7 +108,6 @@ These are installed when **opl** is installed.
 ~~~
 protean:    0.x.x
 underscore: 1.x.x
-rx:         2.x.x
 ~~~
 
 

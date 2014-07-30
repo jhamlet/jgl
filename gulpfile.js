@@ -20,7 +20,8 @@ gulp.task('api.md', function () {
 CLEAN.push('api.md');
 
 gulp.task('readme', ['api.md'], function () {
-    return gulp.src('src/tmpl/README.ejs').
+    return gulp.
+        src('src/tmpl/README.ejs').
         pipe(ejs({
             pkg: pkgInfo,
             documentation: fs.readFileSync('api.md', 'utf8'),
@@ -33,12 +34,13 @@ gulp.task('readme', ['api.md'], function () {
 CLEAN.push('README.md');
 
 gulp.task('docs', ['readme'], function () {
-    return gulp.src(['./lib/**/*.js', 'README.md']).
+    return gulp.
+        src(['./lib/**/*.js', 'README.md']).
         pipe(jsdoc(
             path.join('docs', pkgInfo.version),
             {
                 path:                  'ink-docstrap',
-                systemName:            'OPL',
+                systemName:            'OPL - Object Path Language',
                 footer:                '',
                 copyright:             'Copyright © 2014 Jerry Hamlet',
                 navType:               'vertical',
@@ -67,4 +69,4 @@ gulp.task('docs', ['readme'], function () {
 CLEAN.push('docs/**/*');
 CLEAN.push('docs');
 
-gulp.task('default', ['clean', 'docs']);
+gulp.task('default', ['docs']);
