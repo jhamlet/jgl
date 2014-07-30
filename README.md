@@ -29,6 +29,7 @@ Object Path Language
   * [OPL.explode(path)](#module_OPL.explode)
   * [OPL.get(obj, ...path)](#module_OPL.get)
   * [OPL.segmentKeys(segment)](#module_OPL.segmentKeys)
+  * [OPL.set(obj, pvs)](#module_OPL.set)
   * [type: OPL~Range](#module_OPL..Range)
   * [type: OPL~QueryKey](#module_OPL..QueryKey)
   * [type: OPL~PathSegment](#module_OPL..PathSegment)
@@ -70,6 +71,15 @@ OPL.explode([[1, 2], [3, 4], 5]);
 - segment <code>[module:OPL~Segment](module:OPL~Segment)</code>  
 
 **Returns**: `Array.<Integer,String>`  
+<a name="module_OPL.set"></a>
+####OPL.set(obj, pvs)
+**Params**
+
+- obj `Object`  
+- pvs <code>[Array.&lt;PathValue&gt;](#module_OPL..PathValue)</code>  
+
+**Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue) - The array of [PathValue](#module_OPL..PathValue)
+that were set on the obj  
 <a name="module_OPL..Range"></a>
 ####type: OPL~Range
 **Scope**: inner typedef of [OPL](#module_OPL)  
@@ -106,7 +116,6 @@ Dependencies
 These are installed when **opl** is installed.
 
 ~~~
-protean:    0.x.x
 underscore: 1.x.x
 ~~~
 

@@ -34,7 +34,6 @@ describe('OPL.get()', function () {
             value = pv[1];
 
         if (value instanceof Error) {
-            path = value.path;
             value = 'ERROR';
         }
 
