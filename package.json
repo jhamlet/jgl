@@ -6,7 +6,6 @@
     "keywords": [],
     "main": "./lib/index.js",
     "dependencies": {
-        "protean":      "0.x.x",
         "underscore":   "1.x.x"
     },
     "devDependencies": {
