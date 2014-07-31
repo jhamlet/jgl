@@ -15,17 +15,19 @@ gulp.task('clean', function (done) {
 gulp.task('api.md', function () {
     return jsdoc2md.
         render('lib/**/*.js', { 'heading-depth': 3 }).
-        pipe(fs.createWriteStream('api.md'));
+        pipe(fs.createWriteStream('API.md'));
 });
-CLEAN.push('api.md');
+CLEAN.push('API.md');
 
-gulp.task('readme', ['api.md'], function () {
+gulp.task('readme.md', function () {
     return gulp.
         src('src/tmpl/README.ejs').
         pipe(ejs({
             pkg: pkgInfo,
-            documentation: fs.readFileSync('api.md', 'utf8'),
-            license: fs.readFileSync('LICENSE', 'utf8')
+            license: fs.readFileSync('LICENSE', 'utf8'),
+            links: {
+                apiDoc: 'API.md'
+            }
         }, {
             ext: '.md'
         })).
@@ -33,7 +35,7 @@ gulp.task('readme', ['api.md'], function () {
 });
 CLEAN.push('README.md');
 
-gulp.task('docs', ['readme'], function () {
+gulp.task('docs', ['readme.md'], function () {
     return gulp.
         src(['./lib/**/*.js', 'README.md']).
         pipe(jsdoc(
@@ -69,4 +71,4 @@ gulp.task('docs', ['readme'], function () {
 CLEAN.push('docs/**/*');
 CLEAN.push('docs');
 
-gulp.task('default', ['docs']);
+gulp.task('default', ['readme.md', 'api.md', 'docs']);
