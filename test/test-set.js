@@ -41,7 +41,10 @@ describe('OPL.set()', function () {
                 [['foo', 'foo'], undefined]
             ];
 
-        OPL.set(obj, paths).should.eql(paths);
+        OPL.
+            set(obj, paths).
+            should.
+            eql(paths.slice(0, 3));
 
         obj.should.eql({
             foo: {

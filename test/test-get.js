@@ -1,31 +1,30 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    OPL = require('../'),
+    _ = require('underscore');
 
 describe('OPL.get()', function () {
     var doc = {
             foo: {
-                bar: {
-                    0: {
+                bar: [
+                    {
                         id: 'foo-bar-0'
                     },
-                    1: {
+                    {
                         id: 'foo-bar-1'
-                    },
-                    length: 2
-                }
+                    }
+                ]
             },
 
             bar: {
-                foo: {
-                    0: {
+                foo: [
+                    {
                         id: 'bar-foo-0'
                     },
-                    1: {
+                    {
                         id: 'bar-foo-1'
-                    },
-                    length: 2
-                }
+                    }
+                ]
             }
         };
 
@@ -34,6 +33,7 @@ describe('OPL.get()', function () {
             value = pv[1];
 
         if (value instanceof Error) {
+            // value = value.message;
             value = 'ERROR';
         }
 
@@ -41,24 +41,30 @@ describe('OPL.get()', function () {
     }
 
     it('should return path values for all paths', function () {
-        OPL.get(doc, [['foo', 'bar'], ['foo', 'bar'], {to : 1}, 'id']).
+        var path = [['foo', 'bar'], ['foo', 'bar'], {to : 1}, 'id'];
+        OPL.get(doc, [path]).
             map(mapPathValue).
             // slice(0, 8).
             should.
             eql([
-                { path: ['foo', 'foo', 0], value: 'ERROR' },
+                { path: ['foo', 'foo'], value: 'ERROR' },
+                { path: ['foo', 'foo', 0, 'id'], value: 'ERROR' },
                 { path: ['bar', 'foo', 0, 'id'], value: 'bar-foo-0' },
                 { path: ['foo', 'bar', 0, 'id'], value: 'foo-bar-0' },
-                { path: ['bar', 'bar', 0], value: 'ERROR' },
-                { path: ['foo', 'foo', 1], value: 'ERROR' },
+                { path: ['bar', 'bar'], value: 'ERROR' },
+                { path: ['bar', 'bar', 0, 'id'], value: 'ERROR' },
+                { path: ['foo', 'foo'], value: 'ERROR' },
+                { path: ['foo', 'foo', 1, 'id'], value: 'ERROR' },
                 { path: ['bar', 'foo', 1, 'id'], value: 'bar-foo-1' },
                 { path: ['foo', 'bar', 1, 'id'], value: 'foo-bar-1' },
-                { path: ['bar', 'bar', 1], value: 'ERROR' }
+                { path: ['bar', 'bar'], value: 'ERROR' },
+                { path: ['bar', 'bar', 1, 'id'], value: 'ERROR' }
             ]);
     });
 
     it('should return undefined for undefined values', function () {
-        OPL.get(doc, ['foo', 'foo'], ['bar', 'bar']).
+        var paths = [['foo', 'foo'], ['bar', 'bar']];
+        OPL.get(doc, paths).
             map(mapPathValue).
             should.
             eql([
@@ -77,7 +83,7 @@ describe('OPL.get()', function () {
                 ['bar', 'foo', 1, 'id']
             ];
 
-        OPL.get.apply(null, [doc].concat(paths)).
+        OPL.get(doc, paths).
             map(mapPathValue).
             should.
             eql([
@@ -91,9 +97,11 @@ describe('OPL.get()', function () {
     });
 
     it('should compose well', function () {
-        OPL.get(doc, ['foo', 'bar', 'length']).
+        var path = ['foo', 'bar', 'length'];
+        OPL.get(doc, [path]).
             forEach(function (pv) {
-                OPL.get(doc, ['foo', 'bar', { to: pv[1] - 1 }, 'id']).
+                var path = ['foo', 'bar', { to: pv[1] - 1 }, 'id'];
+                OPL.get(doc, [path]).
                     map(mapPathValue).
                     should.
                     eql([
@@ -101,6 +109,38 @@ describe('OPL.get()', function () {
                         { path: ['foo', 'bar', 1, 'id'], value: 'foo-bar-1' }
                     ]);
             });
+    });
+
+    it('should compose really well', function () {
+        var doc = {
+                foo: {
+                    bar: {
+                        baz: [
+                            { id: 'foo-bar-baz-0' },
+                            { id: 'foo-bar-baz-1' },
+                            { id: 'foo-bar-baz-2' },
+                            { id: 'foo-bar-baz-3' }
+                        ]
+                    }
+                }
+            },
+            path = ['foo', 'bar', 'baz'];
+
+        _.chain(OPL.get(doc, [path])).
+            map(function (pv) {
+                path.push(Object.keys(pv[1]), 'id');
+                return OPL.get(doc, [path]).
+                    map(mapPathValue);
+            }).
+            flatten().
+            value().
+                should.
+                eql([
+                    { path: ['foo', 'bar', 'baz', 0, 'id'], value: 'foo-bar-baz-0' },
+                    { path: ['foo', 'bar', 'baz', 1, 'id'], value: 'foo-bar-baz-1' },
+                    { path: ['foo', 'bar', 'baz', 2, 'id'], value: 'foo-bar-baz-2' },
+                    { path: ['foo', 'bar', 'baz', 3, 'id'], value: 'foo-bar-baz-3' }
+                ]);
     });
 
 });
