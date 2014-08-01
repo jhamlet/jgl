@@ -2,7 +2,7 @@
 var should = require('should'),
     OPL = require('../');
 
-describe('OPL.segmentKeys', function () {
+describe('OPL.segmentKeys()', function () {
 
     it('should expand ranges', function () {
         var result = OPL.segmentKeys({from: 0, to: 5});

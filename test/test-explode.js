@@ -2,7 +2,7 @@
 var should = require('should'),
     OPL = require('../');
 
-describe('OPL.explode', function () {
+describe('OPL.explode()', function () {
 
     it('should explode a query into all possible paths', function () {
         var result = OPL.explode([[1, 2], ['foo', 'bar'], {from: 3, to: 4}]);

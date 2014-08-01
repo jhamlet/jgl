@@ -100,21 +100,6 @@ describe('OPL.get()', function () {
     });
 
     it('should compose well', function () {
-        var path = ['foo', 'bar', 'length'];
-        OPL.get(doc, [path]).
-            forEach(function (pv) {
-                var path = ['foo', 'bar', { to: pv[1] - 1 }, 'id'];
-                OPL.get(doc, [path]).
-                    map(mapPathValue).
-                    should.
-                    eql([
-                        { path: ['foo', 'bar', 0, 'id'], value: 'bob' },
-                        { path: ['foo', 'bar', 1, 'id'], value: 'marry' }
-                    ]);
-            });
-    });
-
-    it('should compose really well', function () {
         var doc = {
                 foo: {
                     bar: {
