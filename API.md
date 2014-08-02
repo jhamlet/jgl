@@ -86,7 +86,7 @@ OPL.explode([[1, 2], [3, 4], 5]);
 ####OPL.rangeContains(rng, idx)
 **Params**
 
-- rng <code>[module:OP~Range](module:OP~Range)</code>  
+- rng <code>[Range](#module_OPL..Range)</code>  
 - idx `Integer`  
 
 **Returns**: `Boolean`  
@@ -110,7 +110,7 @@ OPL.explode([[1, 2], [3, 4], 5]);
 ####OPL.segmentKeys(segment)
 **Params**
 
-- segment <code>[module:OPL~Segment](module:OPL~Segment)</code>  
+- segment <code>[QuerySegment](#module_OPL..QuerySegment)</code>  
 
 **Returns**: `Array.<Integer,String>`  
 <a name="module_OPL.setPath"></a>
