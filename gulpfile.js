@@ -42,7 +42,7 @@ gulp.task('docs', ['readme.md'], function () {
             path.join('docs', pkgInfo.version),
             {
                 path:                  'ink-docstrap',
-                systemName:            'OPL - Object Path Language',
+                systemName:            pkgInfo.fullname,
                 footer:                '',
                 copyright:             'Copyright © 2014 Jerry Hamlet',
                 navType:               'vertical',

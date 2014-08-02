@@ -1,7 +1,6 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../'),
-    _ = require('underscore');
+    OPL = require('../');
 
 describe('OPL.set()', function () {
 
@@ -30,6 +29,36 @@ describe('OPL.set()', function () {
             },
             bob: ['foo', 'bar', 0]
         });
+    });
+
+    it('should set values through references', function () {
+        var doc = {
+                foo: {
+                    bar: {
+                        0: {},
+                        1: {},
+                        length: 2
+                    }
+                },
+                bob: ['foo', 'bar', 0],
+                marry: ['foo', 'bar', 1]
+            };
+
+        OPL.
+            set(doc, [
+                [['bob', 'id'], 'bob'],
+                [['marry', 'id'], 'marry']
+            ]).
+            should.
+            eql([
+                [['bob'], ['foo', 'bar', 0]],
+                [['foo', 'bar', 0, 'id'], 'bob'],
+                [['marry'], ['foo', 'bar', 1]],
+                [['foo', 'bar', 1, 'id'], 'marry']
+            ]);
+
+        doc.foo.bar[0].id.should.equal('bob');
+        doc.foo.bar[1].id.should.equal('marry');
     });
 
 });

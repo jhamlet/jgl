@@ -5,20 +5,42 @@ Object Path Language
 **Members**
 
 * [OPL](#module_OPL)
+  * [OPL.delPath(obj, path)](#module_OPL.delPath)
+  * [OPL.del(obj, paths)](#module_OPL.del)
   * [OPL.explode(path)](#module_OPL.explode)
+  * [OPL.getPath(obj, path)](#module_OPL.getPath)
   * [OPL.get(obj, paths)](#module_OPL.get)
+  * [OPL.isRange(obj)](#module_OPL.isRange)
+  * [OPL.rangeContains(rng, idx)](#module_OPL.rangeContains)
+  * [OPL.relative(from, to)](#module_OPL.relative)
+  * [OPL.segmentContains(segment, key)](#module_OPL.segmentContains)
   * [OPL.segmentKeys(segment)](#module_OPL.segmentKeys)
+  * [OPL.setPath(obj, value)](#module_OPL.setPath)
   * [OPL.set(obj, pathValues)](#module_OPL.set)
   * [type: OPL~Range](#module_OPL..Range)
-  * [type: OPL~QueryKey](#module_OPL..QueryKey)
   * [type: OPL~PathSegment](#module_OPL..PathSegment)
+  * [type: OPL~QueryKey](#module_OPL..QueryKey)
   * [type: OPL~QuerySegment](#module_OPL..QuerySegment)
   * [type: OPL~Query](#module_OPL..Query)
   * [type: OPL~Path](#module_OPL..Path)
   * [type: OPL~PathValue](#module_OPL..PathValue)
-  * [class: OPL~Error](#module_OPL..Error)
-    * [new OPL~Error(path, message)](#new_module_OPL..Error)
 
+<a name="module_OPL.delPath"></a>
+####OPL.delPath(obj, path)
+**Params**
+
+- obj `Object`  
+- path <code>[Path](#module_OPL..Path)</code>  
+
+**Returns**: [PathValue](#module_OPL..PathValue)  
+<a name="module_OPL.del"></a>
+####OPL.del(obj, paths)
+**Params**
+
+- obj `Object`  
+- paths <code>[Array.&lt;Query&gt;](#module_OPL..Query)</code>  
+
+**Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue)  
 <a name="module_OPL.explode"></a>
 ####OPL.explode(path)
 Expand a path into all possible variations
@@ -37,6 +59,14 @@ OPL.explode([[1, 2], [3, 4], 5]);
 //      [2, 4, 5]
 //   ]
 
+<a name="module_OPL.getPath"></a>
+####OPL.getPath(obj, path)
+**Params**
+
+- obj `Object`  
+- path <code>[Path](#module_OPL..Path)</code>  
+
+**Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue)  
 <a name="module_OPL.get"></a>
 ####OPL.get(obj, paths)
 **Params**
@@ -45,6 +75,37 @@ OPL.explode([[1, 2], [3, 4], 5]);
 - paths <code>[Array.&lt;Query&gt;](#module_OPL..Query)</code> - The object paths to look up  
 
 **Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue)  
+<a name="module_OPL.isRange"></a>
+####OPL.isRange(obj)
+**Params**
+
+- obj `Object`  
+
+**Returns**: `Boolean`  
+<a name="module_OPL.rangeContains"></a>
+####OPL.rangeContains(rng, idx)
+**Params**
+
+- rng <code>[module:OP~Range](module:OP~Range)</code>  
+- idx `Integer`  
+
+**Returns**: `Boolean`  
+<a name="module_OPL.relative"></a>
+####OPL.relative(from, to)
+**Params**
+
+- from <code>[Path](#module_OPL..Path)</code>  
+- to <code>[Path](#module_OPL..Path)</code>  
+
+**Returns**: [Path](#module_OPL..Path)  
+<a name="module_OPL.segmentContains"></a>
+####OPL.segmentContains(segment, key)
+**Params**
+
+- segment <code>[QuerySegment](#module_OPL..QuerySegment)</code>  
+- key <code>[QueryKey](#module_OPL..QueryKey)</code>  
+
+**Returns**: `Boolean`  
 <a name="module_OPL.segmentKeys"></a>
 ####OPL.segmentKeys(segment)
 **Params**
@@ -52,6 +113,15 @@ OPL.explode([[1, 2], [3, 4], 5]);
 - segment <code>[module:OPL~Segment](module:OPL~Segment)</code>  
 
 **Returns**: `Array.<Integer,String>`  
+<a name="module_OPL.setPath"></a>
+####OPL.setPath(obj, value)
+**Params**
+
+- obj `Object`  
+-  <code>[Path](#module_OPL..Path)</code>  
+- value `Mixed`  
+
+**Returns**: [PathValue](#module_OPL..PathValue)  
 <a name="module_OPL.set"></a>
 ####OPL.set(obj, pathValues)
 **Params**
@@ -65,14 +135,14 @@ that were set on the obj
 ####type: OPL~Range
 **Scope**: inner typedef of [OPL](#module_OPL)  
 **Type**: `Object`  
-<a name="module_OPL..QueryKey"></a>
-####type: OPL~QueryKey
-**Scope**: inner typedef of [OPL](#module_OPL)  
-**Type**: `Integer` | `String` | [Range](#module_OPL..Range)  
 <a name="module_OPL..PathSegment"></a>
 ####type: OPL~PathSegment
 **Scope**: inner typedef of [OPL](#module_OPL)  
 **Type**: `Integer` | `String`  
+<a name="module_OPL..QueryKey"></a>
+####type: OPL~QueryKey
+**Scope**: inner typedef of [OPL](#module_OPL)  
+**Type**: [PathSegment](#module_OPL..PathSegment) | [Range](#module_OPL..Range)  
 <a name="module_OPL..QuerySegment"></a>
 ####type: OPL~QuerySegment
 **Scope**: inner typedef of [OPL](#module_OPL)  
@@ -89,20 +159,3 @@ that were set on the obj
 ####type: OPL~PathValue
 **Scope**: inner typedef of [OPL](#module_OPL)  
 **Type**: `Array.<module:OPL~Path, Mixed,Error>`  
-<a name="module_OPL..Error"></a>
-####class: OPL~Error
-**Extends**: `Error`  
-**Members**
-
-* [class: OPL~Error](#module_OPL..Error)
-  * [new OPL~Error(path, message)](#new_module_OPL..Error)
-
-<a name="new_module_OPL..Error"></a>
-#####new OPL~Error(path, message)
-**Params**
-
-- path <code>[Path](#module_OPL..Path)</code>  
-- message `String`  
-
-**Extends**: `Error`  
-**Scope**: inner class of [OPL](#module_OPL)  
