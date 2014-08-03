@@ -56,7 +56,7 @@ describe('OPL.del()', function () {
             val;
 
         OPL.
-            del(doc, [path]).
+            del(doc, path).
             map(mapPathValue).
             should.
             eql([
@@ -71,7 +71,7 @@ describe('OPL.del()', function () {
         var path = [['bob', 'marry', 'joe', 'jack']];
 
         OPL.
-            del(doc, [path]).
+            del(doc, path).
             map(mapPathValue).
             should.
             eql([

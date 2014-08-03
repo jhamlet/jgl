@@ -6,14 +6,17 @@ describe('OPL.set()', function () {
 
     it('should set values on an object', function () {
         var obj = {},
-            paths = [
+            pvs = [
                 [['foo', 'bar', 0, 'id'], 'foo-bar-0'],
                 [['foo', 'bar', 1, 'id'], 'foo-bar-1'],
                 [['foo', 'bar', 'length'], 2],
                 [['bob'], ['foo', 'bar', 0]]
             ];
 
-        OPL.set(obj, paths).should.eql(paths);
+        pvs.
+            forEach(function (pv) {
+                OPL.set(obj, pv).should.eql([pv]);
+            });
 
         obj.should.eql({
             foo: {
@@ -45,10 +48,10 @@ describe('OPL.set()', function () {
             };
 
         OPL.
-            set(doc, [
+            set(doc, 
                 [['bob', 'id'], 'bob'],
                 [['marry', 'id'], 'marry']
-            ]).
+            ).
             should.
             eql([
                 [['bob'], ['foo', 'bar', 0]],
