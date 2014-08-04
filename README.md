@@ -1,7 +1,7 @@
 Object Path Language
 ====================
 
-> 
+> A library for traversing cyclic JSON Graphs
 
 
 Summary

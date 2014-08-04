@@ -6,52 +6,44 @@ var should = require('should'),
 describe('OPL.get()', function () {
     var doc = {
             foo: {
-                bar: {
-                    0: {
+                bar: [
+                    {
                         id: 'bob'
                     },
-                    1: {
+                    {
                         id: 'marry'
-                    },
-                    length: 2
-                }
+                    }
+                ]
             },
 
             bar: {
-                foo: {
-                    0: {
+                foo: [
+                    {
                         id: 'joe'
                     },
-                    1: {
+                    {
                         id: 'jack'
-                    },
-                    length: 2
-                }
+                    }
+                ]
             },
 
-            bob: ['foo', 'bar', 0],
-            marry: ['foo', 'bar', 1],
-            joe: ['bar', 'foo', 0],
-            jack: ['bar', 'foo', 1]
+            bob: {
+                '@ref': ['foo', 'bar', 0]
+            },
+            marry: {
+                '@ref': ['foo', 'bar', 1]
+            },
+            joe: {
+                '@ref': ['bar', 'foo', 0]
+            },
+            jack: {
+                '@ref': ['bar', 'foo', 1]
+            }
         };
-
-    function mapPathValue (pv) {
-        var path = pv[0],
-            value = pv[1];
-
-        if (value instanceof Error) {
-            // value = value.message;
-            value = 'ERROR';
-        }
-
-        return { path: path, value: value };
-    }
 
     it('should return path values for all paths', function () {
         var path = [['foo', 'bar'], ['foo', 'bar'], {to : 1}, 'id'];
         OPL.get(doc, path).
-            map(mapPathValue).
-            // slice(0, 8).
             should.
             eql([
                 { path: ['foo', 'foo'], value: undefined },
@@ -68,7 +60,6 @@ describe('OPL.get()', function () {
     it('should return undefined for undefined values', function () {
         var paths = [['foo', 'foo'], ['bar', 'bar']];
         OPL.get.apply(null, [doc].concat(paths)).
-            map(mapPathValue).
             should.
             eql([
                 { path: ['foo', 'foo'], value: undefined },
@@ -87,7 +78,6 @@ describe('OPL.get()', function () {
             ];
 
         OPL.get.apply(null, [doc].concat(paths)).
-            map(mapPathValue).
             should.
             eql([
                 { path: paths[0], value: 2 },
@@ -103,12 +93,12 @@ describe('OPL.get()', function () {
         var doc = {
                 foo: {
                     bar: {
-                        baz: {
-                            0: { id: 'foo-bar-baz-0' },
-                            1: { id: 'foo-bar-baz-1' },
-                            2: { id: 'foo-bar-baz-2' },
-                            3: { id: 'foo-bar-baz-3' }
-                        }
+                        baz: [
+                            { id: 'foo-bar-baz-0' },
+                            { id: 'foo-bar-baz-1' },
+                            { id: 'foo-bar-baz-2' },
+                            { id: 'foo-bar-baz-3' }
+                        ]
                     }
                 }
             },
@@ -116,9 +106,8 @@ describe('OPL.get()', function () {
 
         _.chain(OPL.get(doc, path)).
             map(function (pv) {
-                path.push(Object.keys(pv[1]), 'id');
-                return OPL.get(doc, path).
-                    map(mapPathValue);
+                path.push({ to: pv.value.length - 1 }, 'id');
+                return OPL.get(doc, path);
             }).
             flatten().
             value().
@@ -134,19 +123,33 @@ describe('OPL.get()', function () {
     it('should handle references', function () {
         var path = [['bob', 'marry', 'joe', 'jack'], 'id'];
         OPL.get(doc, path).
-            map(mapPathValue).
             should.
             eql([
-                { path: ['bob'], value: ['foo', 'bar', 0] },
+                { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
                 { path: ['foo', 'bar', 0, 'id'], value: 'bob' },
-                { path: ['marry'], value: ['foo', 'bar', 1] },
+                { path: ['marry'], value: { '@ref': ['foo', 'bar', 1] } },
                 { path: ['foo', 'bar', 1, 'id'], value: 'marry' },
-                { path: ['joe'], value: ['bar', 'foo', 0] },
+                { path: ['joe'], value: { '@ref': ['bar', 'foo', 0] } },
                 { path: ['bar', 'foo', 0, 'id'], value: 'joe' },
-                { path: ['jack'], value: ['bar', 'foo', 1] },
+                { path: ['jack'], value: { '@ref': ['bar', 'foo', 1] } },
                 { path: ['bar', 'foo', 1, 'id'], value: 'jack' }
             ]);
     });
 
+    it('should return the referenced value if path ends on reference', function () {
+        var path = [['bob', 'marry', 'joe', 'jack']];
+        OPL.get(doc, path).
+            should.
+            eql([
+                { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
+                { path: ['foo', 'bar', 0], value: { id: 'bob' } },
+                { path: ['marry'], value: { '@ref': ['foo', 'bar', 1] } },
+                { path: ['foo', 'bar', 1], value: { id: 'marry' } },
+                { path: ['joe'], value: { '@ref': ['bar', 'foo', 0] } },
+                { path: ['bar', 'foo', 0], value: { id: 'joe' } },
+                { path: ['jack'], value: { '@ref': ['bar', 'foo', 1] } },
+                { path: ['bar', 'foo', 1], value: { id: 'jack' } }
+            ]);
+    });
 });
 

@@ -32,53 +32,39 @@ describe('OPL.del()', function () {
                 }
             },
 
-            bob: ['foo', 'bar', 0],
-            marry: ['foo', 'bar', 1],
-            joe: ['bar', 'foo', 0],
-            jack: ['bar', 'foo', 1]
+            bob: { '@ref': ['foo', 'bar', 0] },
+            marry: { '@ref': ['foo', 'bar', 1] },
+            joe: { '@ref': ['bar', 'foo', 0] },
+            jack: { '@ref': ['bar', 'foo', 1] }
         };
     });
 
-    function mapPathValue (pv) {
-        var path = pv[0],
-            value = pv[1];
-
-        if (value instanceof Error) {
-            // value = value.message;
-            value = 'ERROR';
-        }
-
-        return { path: path, value: value };
-    }
-
     it('should follow references', function () {
-        var path = ['bob', 'id'],
-            val;
+        var path = ['bob', 'id'];
 
         OPL.
             del(doc, path).
-            map(mapPathValue).
             should.
             eql([
-                { path: ['foo', 'bar', 0, 'id'], value: 'bob' }
+                { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
+                { path: ['bob', 'id'] }
             ]);
 
         (doc.foo.bar[0].id === undefined).should.equal(true);
-        doc.bob.should.eql(['foo', 'bar', 0]);
+        doc.bob.should.eql({ '@ref': ['foo', 'bar', 0] });
     });
 
     it('should delete references but not the actual value', function () {
-        var path = [['bob', 'marry', 'joe', 'jack']];
+        var path = [['bob'], ['marry'], ['joe'], ['jack']];
 
         OPL.
-            del(doc, path).
-            map(mapPathValue).
+            del.apply(null, [doc].concat(path)).
             should.
             eql([
-                { path: ['bob'], value: ['foo', 'bar', 0] },
-                { path: ['marry'], value: ['foo', 'bar', 1] },
-                { path: ['joe'], value: ['bar', 'foo', 0] },
-                { path: ['jack'], value: ['bar', 'foo', 1] }
+                { path: ['bob'] },
+                { path: ['marry'] },
+                { path: ['joe'] },
+                { path: ['jack'] }
             ]);
 
         doc.
