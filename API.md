@@ -27,7 +27,7 @@ Object Path Language
 ####OPL.del(graph, ...path)
 **Params**
 
-- graph `graphect`  
+- graph `Object`  
 - ...path <code>[Path](#module_OPL..Path)</code>  
 
 **Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue)  
@@ -60,8 +60,8 @@ OPL.explode([[1, 2], [3, 4], 5]);
 ####OPL.get(graph, ...path)
 **Params**
 
-- graph `graphect` - The source graphect to pull values from  
-- ...path <code>[Query](#module_OPL..Query)</code> - The graphect paths to look up  
+- graph `Object` - The source Object to pull values from  
+- ...path <code>[Query](#module_OPL..Query)</code> - The Object paths to look up  
 
 **Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue)  
 <a name="module_OPL.isRange"></a>
@@ -106,7 +106,7 @@ OPL.explode([[1, 2], [3, 4], 5]);
 ####OPL.set(graph, ...pathValue)
 **Params**
 
-- graph `graphect`  
+- graph `Object`  
 - ...pathValue <code>[PathValue](#module_OPL..PathValue)</code>  
 
 **Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue) - The array of [PathValue](#module_OPL..PathValue)'s
