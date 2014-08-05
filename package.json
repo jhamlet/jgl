@@ -2,7 +2,7 @@
     "name": "opl",
     "fullname": "Object Path Language",
     "description": "A library for traversing cyclic JSON Graphs",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "keywords": ["json", "graph", "path", "query"],
     "main": "./lib/index.js",
     "dependencies": {
