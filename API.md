@@ -5,6 +5,8 @@ Object Path Language
 **Members**
 
 * [OPL](#module_OPL)
+  * [OPL~ERROR_KEY](#module_OPL..ERROR_KEY)
+  * [OPL~REF_KEY](#module_OPL..REF_KEY)
   * [OPL.del(graph, ...path)](#module_OPL.del)
   * [OPL.errorToValue()](#module_OPL.errorToValue)
   * [OPL.explode(path)](#module_OPL.explode)
@@ -15,6 +17,7 @@ Object Path Language
   * [OPL.segmentContains(segment, key)](#module_OPL.segmentContains)
   * [OPL.segmentKeys(segment)](#module_OPL.segmentKeys)
   * [OPL.set(graph, ...pathValue)](#module_OPL.set)
+  * [OPL.valueToError(value)](#module_OPL.valueToError)
   * [type: OPL~Range](#module_OPL..Range)
   * [type: OPL~PathSegment](#module_OPL..PathSegment)
   * [type: OPL~QueryKey](#module_OPL..QueryKey)
@@ -23,6 +26,14 @@ Object Path Language
   * [type: OPL~Path](#module_OPL..Path)
   * [type: OPL~PathValue](#module_OPL..PathValue)
 
+<a name="module_OPL..ERROR_KEY"></a>
+####OPL~ERROR_KEY
+**Scope**: inner member of [OPL](#module_OPL)  
+**Default**: `'@error'`  
+<a name="module_OPL..REF_KEY"></a>
+####OPL~REF_KEY
+**Scope**: inner member of [OPL](#module_OPL)  
+**Default**: `'@ref'`  
 <a name="module_OPL.del"></a>
 ####OPL.del(graph, ...path)
 **Params**
@@ -111,6 +122,13 @@ OPL.explode([[1, 2], [3, 4], 5]);
 
 **Returns**: [Array.&lt;PathValue&gt;](#module_OPL..PathValue) - The array of [PathValue](#module_OPL..PathValue)'s
 that were set on the graph  
+<a name="module_OPL.valueToError"></a>
+####OPL.valueToError(value)
+**Params**
+
+- value `Object`  
+
+**Returns**: `Error`  
 <a name="module_OPL..Range"></a>
 ####type: OPL~Range
 An object that can be expanded into a series of indices
