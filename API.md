@@ -5,9 +5,9 @@ JSON Graph Language
 **Members**
 
 * [JGL](#module_JGL)
-  * [JGL~ERROR_KEY](#module_JGL..ERROR_KEY)
+  * [JGL.ERROR_KEY](#module_JGL.ERROR_KEY)
   * [JGL.LAST_RELATIVE_PATH](#module_JGL.LAST_RELATIVE_PATH)
-  * [JGL~REF_KEY](#module_JGL..REF_KEY)
+  * [JGL.REF_KEY](#module_JGL.REF_KEY)
   * [JGL.del(graph, ...path)](#module_JGL.del)
   * [JGL.equals(src, other)](#module_JGL.equals)
   * [JGL.errorToValue()](#module_JGL.errorToValue)
@@ -33,9 +33,8 @@ JSON Graph Language
   * [type: JGL~Path](#module_JGL..Path)
   * [type: JGL~PathValue](#module_JGL..PathValue)
 
-<a name="module_JGL..ERROR_KEY"></a>
-####JGL~ERROR_KEY
-**Scope**: inner member of [JGL](#module_JGL)  
+<a name="module_JGL.ERROR_KEY"></a>
+####JGL.ERROR_KEY
 **Default**: `'@error'`  
 <a name="module_JGL.LAST_RELATIVE_PATH"></a>
 ####JGL.LAST_RELATIVE_PATH
@@ -44,9 +43,8 @@ Useful for not having to re-compute the relative path after testing for
 relativity.
 
 **Type**: [Query](#module_JGL..Query)  
-<a name="module_JGL..REF_KEY"></a>
-####JGL~REF_KEY
-**Scope**: inner member of [JGL](#module_JGL)  
+<a name="module_JGL.REF_KEY"></a>
+####JGL.REF_KEY
 **Default**: `'@ref'`  
 <a name="module_JGL.del"></a>
 ####JGL.del(graph, ...path)
