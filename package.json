@@ -1,8 +1,8 @@
 {
-    "name": "opl",
-    "fullname": "Object Path Language",
+    "name": "jgl",
+    "fullname": "JSON Graph Language",
     "description": "A library for traversing cyclic JSON Graphs",
-    "version": "0.2.1",
+    "version": "0.2.3",
     "keywords": ["json", "graph", "path", "query"],
     "main": "./lib/index.js",
     "dependencies": {
@@ -25,14 +25,14 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "http://githubocom/jhamlet/opl/raw/master/LICENSE"
+            "url": "http://githubocom/jhamlet/jgl/raw/master/LICENSE"
         }
     ],
     "repository": {
         "type": "git",
-        "url": "http://github.com/jhamlet/opl.git"
+        "url": "http://github.com/jhamlet/jgl.git"
     },
     "bugs": {
-        "url": "http://github.com/jhamlet/opl/issues"
+        "url": "http://github.com/jhamlet/jgl/issues"
     }
 }

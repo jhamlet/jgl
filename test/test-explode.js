@@ -19,5 +19,13 @@ describe('OPL.explode()', function () {
         ]);
     });
 
+    it('should explode a range to: 1', function () {
+        OPL.explode([{to: 1}]).
+            should.
+            eql([
+                [0],
+                [1]
+            ]);
+    });
 });
 

@@ -37,5 +37,11 @@ describe('OPL.segmentContains()', function () {
     it('should return false for ranges that do not overlap', function () {
         OPL.segmentContains(segment, { from: 5, to: 9 }).should.equal(false);
     });
+
+    it('should return true for query segments', function () {
+        OPL.segmentContains(segment, ['foo', 0]).should.be.true;
+        OPL.segmentContains(segment, ['foo', 0, {to: 2}]).should.be.true;
+        OPL.segmentContains(segment, [{to: 2}]).should.be.true;
+    });
 });
 

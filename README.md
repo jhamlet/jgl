@@ -1,5 +1,5 @@
-Object Path Language
-====================
+JSON Graph Language
+===================
 
 > A library for traversing cyclic JSON Graphs
 
@@ -12,7 +12,7 @@ Installation
 ------------
 
 ~~~
-% npm install opl
+% npm install jgl
 ~~~
 
 
@@ -24,7 +24,7 @@ Documentation
 Dependencies
 ------------
 
-These are installed when **opl** is installed.
+These are installed when **jgl** is installed.
 
 ~~~
 underscore: 1.x.x
@@ -49,7 +49,7 @@ jsdoc-to-markdown: 0.x.x
 Report an Issue
 ---------------
 
-* [Bugs](http://github.com/jhamlet/opl/issues)
+* [Bugs](http://github.com/jhamlet/jgl/issues)
 * Contact the author: <jerry@hamletink.com>
 
 
