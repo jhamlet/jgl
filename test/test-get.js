@@ -19,6 +19,13 @@ describe('OPL.get()', function () {
                 { '@ref': ['bob'] },
                 { '@ref': ['marry'] },
                 { '@ref': ['sue'] }
+            ],
+
+            groups: [
+                [
+                    { '@ref': ['people', 0] },
+                    { '@ref': ['people', 1] }
+                ]
             ]
         };
 
@@ -125,5 +132,20 @@ describe('OPL.get()', function () {
             ]);
     });
 
+    it('should follow deep references', function () {
+        OPL.
+            get(doc, ['groups', 0, {to: 1}, 'id']).
+            should.
+            eql([
+                { path: ['groups', 0, 0], value: { '@ref': ['people', 0] } },
+                { path: ['people', 0], value: { '@ref': ['bob'] } },
+                { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
+                { path: ['foo', 'bar', 0, 'id'], value: 'bob' },
+                { path: ['groups', 0, 1], value: { '@ref': ['people', 1] } },
+                { path: ['people', 1], value: { '@ref': ['marry'] } },
+                { path: ['marry'], value: { '@ref': ['foo', 'bar', 1] } },
+                { path: ['foo', 'bar', 1, 'id'], value: 'marry' }
+            ]);
+    });
 });
 
