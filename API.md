@@ -19,7 +19,7 @@ JSON Graph Language
   * [JGL.pathValueIsRef(pv)](#module_JGL.pathValueIsRef)
   * [JGL.rangeContains(rng, idx)](#module_JGL.rangeContains)
   * [JGL.relative(from, to)](#module_JGL.relative)
-  * [JGL.resolve(graph, query)](#module_JGL.resolve)
+  * [JGL.resolve(pathValues)](#module_JGL.resolve)
   * [JGL.segmentContains(segment, key)](#module_JGL.segmentContains)
   * [JGL.segmentKeys(segment)](#module_JGL.segmentKeys)
   * [JGL.set(graph, ...pathValue)](#module_JGL.set)
@@ -143,11 +143,10 @@ JGL.explode([[1, 2], [3, 4], 5]);
 
 **Returns**: [Query](#module_JGL..Query)  
 <a name="module_JGL.resolve"></a>
-####JGL.resolve(graph, query)
+####JGL.resolve(pathValues)
 **Params**
 
-- graph `Object` - The object to traverse  
-- query <code>[Query](#module_JGL..Query)</code> - The query paths to follow  
+- pathValues <code>[Array.&lt;PathValue&gt;](#module_JGL..PathValue)</code>  
 
 **Returns**: [Array.&lt;PathValue&gt;](#module_JGL..PathValue)  
 <a name="module_JGL.segmentContains"></a>
