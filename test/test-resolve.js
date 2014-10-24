@@ -1,8 +1,8 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    JGL = require('../');
 
-describe('OPL.resolve()', function () {
+describe('JGL.resolve()', function () {
 
     it('should collapse', function () {
         var pathValues = [
@@ -15,12 +15,27 @@ describe('OPL.resolve()', function () {
                 { path: ['marry'], value: { '@ref': ['foo', 'bar', 1] } },
                 { path: ['foo', 'bar', 1, 'id'], value: 'marry' }
             ];
-        OPL.
+        JGL.
             resolve(pathValues).
             should.
             eql([
                 { path: ['groups', 0, 0, 'id'], value: 'bob' },
                 { path: ['groups', 0, 1, 'id'], value: 'marry' }
+            ]);
+    });
+
+    it.only('should handle duplicate refs', function () {
+        var pathValues = [
+                { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
+                { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
+                { path: ['foo', 'bar', 0, 'id'], value: 'bob' }
+            ];
+
+        JGL.
+            resolve(pathValues).
+            should.
+            eql([
+                { path: ['bob', 'id'], value: 'bob' }
             ]);
     });
 
@@ -35,7 +50,7 @@ describe('OPL.resolve()', function () {
                 { path: ['marry'], value: { '@ref': ['foo', 'bar', 1] } },
                 { path: ['foo', 'bar', 1, 'id'], value: new Error() }
             ],
-            result = OPL.resolve(pathValues);
+            result = JGL.resolve(pathValues);
 
         result[0].path.should.eql(['groups', 0, 0, 'id']);
         result[0].value.should.be.an.Error;
@@ -50,7 +65,7 @@ describe('OPL.resolve()', function () {
                 { path: ['foo', 'bar', 1, 'id'], value: 'marry' }
             ];
 
-        OPL.
+        JGL.
             resolve(pathValues).
             should.
             eql([
