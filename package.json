@@ -2,7 +2,7 @@
     "name": "jgl",
     "fullname": "JSON Graph Language",
     "description": "A library for traversing cyclic JSON Graphs",
-    "version": "0.2.5",
+    "version": "0.3.0",
     "keywords": ["json", "graph", "path", "query"],
     "main": "./lib/index.js",
     "dependencies": {
