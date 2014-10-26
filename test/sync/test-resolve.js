@@ -1,6 +1,6 @@
 /*globals describe, it */
 var should = require('should'),
-    JGL = require('../');
+    JGL = require('../../');
 
 describe('JGL.resolve()', function () {
 
@@ -24,7 +24,7 @@ describe('JGL.resolve()', function () {
             ]);
     });
 
-    it.only('should handle duplicate refs', function () {
+    it('should handle duplicate refs', function () {
         var pathValues = [
                 { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
                 { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },

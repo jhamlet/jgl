@@ -1,15 +1,15 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    JGL = require('../../');
 
-describe('OPL.relative()', function () {
+describe('JGL.relative()', function () {
 
     it('should return a relative path', function () {
         var from = ['foo', 'bar'],
             to = ['foo', 'bar', 'abc', 'def'],
             expected = ['abc', 'def'];
 
-        OPL.
+        JGL.
             relative(from, to).
             should.
             eql(expected);
@@ -20,7 +20,7 @@ describe('OPL.relative()', function () {
             to = ['foo', 'bar', 'abc', 'def'],
             expected = ['foo', 'bar', 'abc', 'def'];
 
-        OPL.
+        JGL.
             relative(from, to).
             should.
             eql(expected);
@@ -30,7 +30,7 @@ describe('OPL.relative()', function () {
         var from = ['foo', 'bar', { to: 9}],
             to = ['foo', 'bar', [1, 2, 3], 'id'];
 
-        OPL.
+        JGL.
             relative(from, to).
             should.
             eql(['id']);
@@ -40,7 +40,7 @@ describe('OPL.relative()', function () {
         var from = ['foo', 'bar', { to: 9}],
             to = ['foo', 'bar', [11, 12, 13], 'id'];
 
-        OPL.
+        JGL.
             relative(from, to).
             should.
             eql(['foo', 'bar', [11, 12, 13], 'id']);
@@ -50,7 +50,7 @@ describe('OPL.relative()', function () {
         var from = [],
             to = ['foo', 'bar', [11, 12, 13], 'id'];
 
-        OPL.
+        JGL.
             relative(from, to).
             should.
             eql(['foo', 'bar', [11, 12, 13], 'id']);

@@ -1,8 +1,8 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    JGL = require('../../');
 
-describe('OPL.valueToError()', function () {
+describe('JGL.valueToError()', function () {
 
     it('should be an Error', function () {
         var value = {
@@ -12,7 +12,7 @@ describe('OPL.valueToError()', function () {
                     stack: 'abc'
                 }
             },
-            error = OPL.valueToError(value);
+            error = JGL.valueToError(value);
 
         error.should.be.an.Error;
         error.name.should.equal('Error');
@@ -28,7 +28,7 @@ describe('OPL.valueToError()', function () {
                     stack: 'abc'
                 }
             },
-            error = OPL.valueToError(value);
+            error = JGL.valueToError(value);
 
         error.should.be.an.RangeError;
     });

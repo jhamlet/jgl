@@ -1,8 +1,8 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    JGL = require('../../');
 
-describe('OPL.set()', function () {
+describe('JGL.set()', function () {
 
     it('should set values on an object', function () {
         var obj = {},
@@ -15,7 +15,7 @@ describe('OPL.set()', function () {
 
         pvs.
             forEach(function (pv) {
-                OPL.set(obj, pv).should.eql([pv]);
+                JGL.set(obj, pv).should.eql([pv]);
             });
 
         obj.should.eql({
@@ -46,7 +46,7 @@ describe('OPL.set()', function () {
                 marry: { '@ref': ['foo', 'bar', 1] }
             };
 
-        OPL.
+        JGL.
             set(doc, 
                 { path: ['bob', 'id'], value: 'bob' },
                 { path: ['marry', 'id'], value: 'marry' }

@@ -1,11 +1,11 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    JGL = require('../../');
 
-describe('OPL.explode()', function () {
+describe('JGL.explode()', function () {
 
     it('should explode a query into all possible paths', function () {
-        var result = OPL.explode([[1, 2], ['foo', 'bar'], {from: 3, to: 4}]);
+        var result = JGL.explode([[1, 2], ['foo', 'bar'], {from: 3, to: 4}]);
 
         result.should.eql([
             [1, 'foo', 3],
@@ -20,7 +20,7 @@ describe('OPL.explode()', function () {
     });
 
     it('should explode a range to: 1', function () {
-        OPL.explode([{to: 1}]).
+        JGL.explode([{to: 1}]).
             should.
             eql([
                 [0],

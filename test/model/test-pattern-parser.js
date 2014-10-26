@@ -1,6 +1,6 @@
 /*globals describe, it */
 var should = require('should'),
-    JGLModel = require('../../').Model.Pattern,
+    JGLModel = require('../../').Model,
     Parser = JGLModel.Pattern.Parser;
 
 describe('OPE.Pattern.Parser', function () {

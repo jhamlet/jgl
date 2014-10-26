@@ -1,15 +1,15 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../');
+    JGL = require('../../');
 
-describe('OPL.rangeContains()', function () {
+describe('JGL.rangeContains()', function () {
 
     it('should return true if index falls within range', function () {
-        OPL.rangeContains({ from: 0, to: 4 }, 3).should.equal(true);
+        JGL.rangeContains({ from: 0, to: 4 }, 3).should.equal(true);
     });
 
     it('should return false if index falls outside of range', function () {
-        OPL.rangeContains({ from: 0, to: 4}, 9).should.equal(false);
+        JGL.rangeContains({ from: 0, to: 4}, 9).should.equal(false);
     });
 
     it('should return false for non-integer indexes', function () {
@@ -20,7 +20,7 @@ describe('OPL.rangeContains()', function () {
             undefined
         ].
             forEach(function (arg) {
-                OPL.rangeContains({ from: 0, to: 4 }, arg).
+                JGL.rangeContains({ from: 0, to: 4 }, arg).
                     should.equal(false);
             });
     });

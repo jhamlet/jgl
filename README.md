@@ -27,7 +27,9 @@ Dependencies
 These are installed when **jgl** is installed.
 
 ~~~
+protean:    0.x.x
 underscore: 1.x.x
+rx:         2.x.x
 ~~~
 
 

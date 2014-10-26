@@ -1,9 +1,8 @@
 /*globals describe, it, beforeEach */
 var should = require('should'),
-    OPL = require('../'),
-    _ = require('underscore');
+    JGL = require('../../');
 
-describe('OPL.del()', function () {
+describe('JGL.del()', function () {
     var doc;
 
     beforeEach(function () {
@@ -42,7 +41,7 @@ describe('OPL.del()', function () {
     it('should follow references', function () {
         var path = ['bob', 'id'];
 
-        OPL.
+        JGL.
             del(doc, path).
             should.
             eql([
@@ -57,7 +56,7 @@ describe('OPL.del()', function () {
     it('should delete references but not the actual value', function () {
         var path = [['bob'], ['marry'], ['joe'], ['jack']];
 
-        OPL.
+        JGL.
             del.apply(null, [doc].concat(path)).
             should.
             eql([

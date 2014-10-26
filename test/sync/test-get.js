@@ -1,9 +1,9 @@
 /*globals describe, it */
 var should = require('should'),
-    OPL = require('../'),
+    JGL = require('../../'),
     _ = require('underscore');
 
-describe('OPL.get()', function () {
+describe('JGL.get()', function () {
     var doc = {
             foo: {
                 bar: [
@@ -31,7 +31,7 @@ describe('OPL.get()', function () {
 
     it('should return path values for all paths', function () {
         var path = ['foo', 'bar', {to : 1}, 'id'];
-        OPL.get(doc, path).
+        JGL.get(doc, path).
             should.
             eql([
                 { path: ['foo', 'bar', 0, 'id'], value: 'bob' },
@@ -40,7 +40,7 @@ describe('OPL.get()', function () {
     });
 
     it('should return undefined for undefined values', function () {
-        OPL.get(doc, ['foo', 'foo']).
+        JGL.get(doc, ['foo', 'foo']).
             should.
             eql([
                 { path: ['foo', 'foo'], value: undefined }
@@ -54,7 +54,7 @@ describe('OPL.get()', function () {
                 ['foo', 'bar', 1, 'id']
             ];
 
-        OPL.get.apply(null, [doc].concat(paths)).
+        JGL.get.apply(null, [doc].concat(paths)).
             should.
             eql([
                 { path: paths[0], value: 2 },
@@ -78,10 +78,10 @@ describe('OPL.get()', function () {
             },
             path = ['foo', 'bar', 'baz'];
 
-        _.chain(OPL.get(doc, path)).
+        _.chain(JGL.get(doc, path)).
             map(function (pv) {
                 path.push({ to: pv.value.length - 1 }, 'id');
-                return OPL.get(doc, path);
+                return JGL.get(doc, path);
             }).
             flatten().
             value().
@@ -96,7 +96,7 @@ describe('OPL.get()', function () {
 
     it('should handle references', function () {
         var path = [['bob', 'marry'], 'id'];
-        OPL.get(doc, path).
+        JGL.get(doc, path).
             should.
             eql([
                 { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
@@ -108,7 +108,7 @@ describe('OPL.get()', function () {
 
     it('should return the referenced value if path ends on reference', function () {
         var path = [['bob', 'marry']];
-        OPL.get(doc, path).
+        JGL.get(doc, path).
             should.
             eql([
                 { path: ['bob'], value: { '@ref': ['foo', 'bar', 0] } },
@@ -119,7 +119,7 @@ describe('OPL.get()', function () {
     });
 
     it('should follow multiple references', function () {
-        OPL.
+        JGL.
             get(doc, ['people', {to: 1}, 'id']).
             should.
             eql([
@@ -133,7 +133,7 @@ describe('OPL.get()', function () {
     });
 
     it('should follow deep references', function () {
-        OPL.
+        JGL.
             get(doc, ['groups', 0, {to: 1}, 'id']).
             should.
             eql([
