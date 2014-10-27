@@ -82,17 +82,13 @@ describe('CachedJGLModel', function () {
             doAction(function (pv) {
                 if (count === 0) {
                     pv.should.eql({
-                        path: ['foo', 'bar', 1, 'id'],
-                        value: {
-                            foo: {
-                                bar: { 1: { id: 'marry' } }
-                            }
-                        }
+                        path: ['foo', 'bar', {to: 1}, 'id'],
+                        value: expected
                     });
                 }
                 else {
                     pv.should.eql({
-                        path: ['foo', 'bar', 0, 'id'],
+                        path: ['foo', 'bar', {to: 1}, 'id'],
                         value: expected
                     });
                 }
@@ -108,11 +104,7 @@ describe('CachedJGLModel', function () {
                         // cache. The values are the same due to the fact that by the
                         // time they get here, the second path has updated the object
                             {
-                                path: ['foo', 'bar', 1, 'id'],
-                                value: expected
-                            },
-                            {
-                                path: ['foo', 'bar', 0, 'id'],
+                                path: ['foo', 'bar', {to: 1}, 'id'],
                                 value: expected
                             }
                         ]);

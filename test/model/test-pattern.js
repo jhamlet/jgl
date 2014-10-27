@@ -121,8 +121,7 @@ describe('PatternJGLModel', function () {
                     next.
                         should.
                         eql([
-                            { path: ['bob', 'id'], value: expectedValue },
-                            { path: ['marry', 'id'], value: expectedValue }
+                            { path: [['bob', 'marry'], 'id'], value: expectedValue },
                         ]);
                 },
                 function (error) {
@@ -147,8 +146,10 @@ describe('PatternJGLModel', function () {
                     next.
                         should.
                         eql([
-                            { path: ['people', 0, 'id'], value: expectedValue },
-                            { path: ['people', 1, 'id'], value: expectedValue }
+                            {
+                                path: ['people', {to: 1}, 'id'],
+                                value: expectedValue
+                            }
                         ]);
                 },
                 function (error) {
@@ -175,8 +176,10 @@ describe('PatternJGLModel', function () {
                     next.
                         should.
                         eql([
-                            { path: ['groups', 0, 0, 'id'], value: expectedValue },
-                            { path: ['groups', 0, 1, 'id'], value: expectedValue }
+                            {
+                                path: ['groups', {to: 0}, {to: 1}, 'id'],
+                                value: expectedValue
+                            }
                         ]);
                 },
                 function (error) {
@@ -187,15 +190,6 @@ describe('PatternJGLModel', function () {
     });
 
     it('should return path values', function (done) {
-        var expectedValue = {
-                foo: {
-                    bar: {
-                        0: { id: 'bob' },
-                        1: { id: 'marry' }
-                    }
-                }
-            };
-
         pe.get(['foo', 'bar', 'length'], ['foo', 'bar', {to: 1}, 'id']).
             toArray().
             subscribe(
@@ -213,8 +207,17 @@ describe('PatternJGLModel', function () {
                                     }
                                 }
                             },
-                            { path: ['foo', 'bar', 0, 'id'], value: expectedValue },
-                            { path: ['foo', 'bar', 1, 'id'], value: expectedValue },
+                            {
+                                path: ['foo', 'bar', {to: 1}, 'id'],
+                                value: {
+                                    foo: {
+                                        bar: {
+                                            0: { id: 'bob' },
+                                            1: { id: 'marry' },
+                                        }
+                                    }
+                                }
+                            }
                         ]);
                 },
                 function (error) {

@@ -30,7 +30,7 @@ describe('MemoryJGLModel', function () {
         },
         pe = new MemoryJGLModel(doc);
 
-    it('should...', function (done) {
+    it('should handle bound references', function (done) {
         var src = pe.bind([['bob', 'marry']]);
 
         src.get(['id']).
@@ -51,7 +51,7 @@ describe('MemoryJGLModel', function () {
             );
     });
 
-    it('should...', function (done) {
+    it('should return relative path values', function (done) {
         var src = pe.bind(['foo', 'bar']);
 
         src.get([{to: 1}, 'id']).
@@ -62,14 +62,7 @@ describe('MemoryJGLModel', function () {
                         should.
                         eql([
                             {
-                                path: [0, 'id'],
-                                value: {
-                                    0: doc.foo.bar[0],
-                                    1: doc.foo.bar[1]
-                                }
-                            },
-                            {
-                                path: [1, 'id'],
+                                path: [{ to: 1 }, 'id'],
                                 value: {
                                     0: doc.foo.bar[0],
                                     1: doc.foo.bar[1]
@@ -84,7 +77,7 @@ describe('MemoryJGLModel', function () {
             );
     });
 
-    it('should...', function (done) {
+    it('should handle multiple references', function (done) {
         var src = pe.bind(['groups', 0, {to: 1}]);
 
         src.get(['id']).
